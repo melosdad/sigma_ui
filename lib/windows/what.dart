@@ -35,8 +35,8 @@ class _WhatState extends State<What> {
                         var route = new MaterialPageRoute(builder:  (BuildContext context) => new Landing(),);
                         Navigator.of(context).push(route);
                       },splashColor: Colors.black45,
-                      color: Colors.lightBlueAccent,
-                      child: Text('Customer', style: TextStyle(color: Colors.white)),
+                      color: Colors.teal,
+                      child: Text('Customer',),
                     ),
                   ),
                 ),
@@ -54,8 +54,8 @@ class _WhatState extends State<What> {
                         var route = new MaterialPageRoute(builder:  (BuildContext context) => new Profile(),);
                         Navigator.of(context).push(route);
                       },splashColor: Colors.black45,
-                      color: Colors.lightBlueAccent,
-                      child: Text('Brand', style: TextStyle(color: Colors.white)),
+                      color: Colors.teal,
+                      child: Text('Brand',),
                     ),
                   ),
                 )

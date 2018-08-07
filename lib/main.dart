@@ -9,7 +9,15 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'SIGMA',
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
+        primaryTextTheme: TextTheme(
+          caption: TextStyle(
+            color: Colors.black87
+          ),
+          headline: TextStyle(
+            color: Colors.black87
+          )
+        )
       ),
       home: new Login()
     );

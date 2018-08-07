@@ -11,10 +11,13 @@ class _TrendsState extends State<Trends> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text("Trends"),
+        backgroundColor: Colors.teal,
+        title: new Text("Trends", style: TextStyle(
+          color: Colors.black87
+        ),),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.account_circle), onPressed: (){
+          IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
               builder: (BuildContext context) => new Profile(),
             );

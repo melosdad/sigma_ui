@@ -34,23 +34,23 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
     return Scaffold(
 
       bottomNavigationBar: new Material(
-        color: Colors.blue,
+        color: Colors.teal,
         child: new TabBar(
           controller: controller,
-          labelColor: Colors.white,
+          labelColor: Colors.black87,
           indicator: BoxDecoration(
-              color: Colors.lightBlueAccent
+              color: Colors.tealAccent
           ),
           tabs: <Tab>[
             new Tab(
               text: "Chats",
-              icon: new Icon(Icons.chat,color: Colors.white,),),
+              icon: new Icon(Icons.chat,color: Colors.black87,),),
             new Tab(
               text: "Contacts",
-              icon: new Icon(Icons.contacts,color: Colors.white,),),
+              icon: new Icon(Icons.contacts,color: Colors.black87,),),
             new Tab(
               text: "Trends",
-              icon: new Icon(Icons.trending_up,color: Colors.white,),),
+              icon: new Icon(Icons.trending_up,color: Colors.black87,),),
           ],
         ),
       ),

@@ -134,13 +134,20 @@ fontSize: 20.0
               new TextFormField(
                 controller: txtEmail,
                 decoration: InputDecoration(
-                labelText: "Email"
+                labelText: "Email",
+                    labelStyle: TextStyle(
+                        color: Colors.black87
+                    )
               ),autofocus: false,
               keyboardType: TextInputType.text,),
               new TextFormField(
                 controller: txtPassword,
                 decoration: InputDecoration(
-                  labelText: "Password"
+                  labelText: "Password",
+                  labelStyle: TextStyle(
+                    color: Colors.black87
+                  )
+
               ),autofocus: false,
                 obscureText: true,
                 keyboardType: TextInputType.text,),
@@ -148,7 +155,7 @@ fontSize: 20.0
             ,new FlatButton(
                 child: Text(
                   'New User? Register',
-                  style: TextStyle(color: Colors.black54),
+                  style: TextStyle(color: Colors.black87),
                 ),
                 onPressed: () {
                   var route = new MaterialPageRoute(
@@ -166,7 +173,7 @@ fontSize: 20.0
                 height: 45.0,
                 color: Colors.teal,
                 child: new Text("Login", style: TextStyle(
-                  color: Colors.white
+                  color: Colors.black87
                 ),),),
 
             ],

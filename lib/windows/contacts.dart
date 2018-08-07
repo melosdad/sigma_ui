@@ -10,11 +10,15 @@ class _ContactsState extends State<Contacts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: new Text("Contacts"),
+        backgroundColor: Colors.teal,
+        title: new Text("Contacts",style: TextStyle(
+          color: Colors.black87
+        ),),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.account_circle), onPressed: (){
+          IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
               builder: (BuildContext context) => new Profile(),
             );

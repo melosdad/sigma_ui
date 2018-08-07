@@ -10,11 +10,16 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-          title: new Text("Chats"),
+        backgroundColor: Colors.teal,
+          title: new Text("Chats",style:
+            TextStyle(
+              color: Colors.black87
+            ),),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.account_circle), onPressed: (){
+          IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
               builder: (BuildContext context) => new Profile(),
             );

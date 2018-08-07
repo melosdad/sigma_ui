@@ -27,7 +27,7 @@ class _RegisterState extends State<Register> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
-                color: Colors.teal
+                color: Colors.black87
               ),),
               SizedBox(height: 20.0,),
               TextFormField(
@@ -35,7 +35,7 @@ class _RegisterState extends State<Register> {
                 decoration: InputDecoration(
                   labelText: "First Name",
                   labelStyle: TextStyle(
-                    color: Colors.teal
+                    color: Colors.black87
                   ),
                   icon: Icon(Icons.account_circle)
                 ),
@@ -43,7 +43,7 @@ class _RegisterState extends State<Register> {
               TextFormField(decoration: InputDecoration(
                   labelText: "Last Name",
                   labelStyle: TextStyle(
-                      color: Colors.teal
+                      color: Colors.black87
                   ),
                   icon: Icon(Icons.account_circle)
               ),),
@@ -52,19 +52,19 @@ class _RegisterState extends State<Register> {
                   labelStyle: TextStyle(
                       color: Colors.black
                   ),
-                  icon: Icon(Icons.mail)
+                  icon: Icon(Icons.mail,)
               ),),
               TextFormField(decoration: InputDecoration(
                   labelText: "Password",
                   labelStyle: TextStyle(
-                      color: Colors.teal
+                      color: Colors.black87
                   ),
                   icon: Icon(Icons.vpn_key)
               ),),
               TextFormField(decoration: InputDecoration(
                   labelText: "Confirm Password",
                   labelStyle: TextStyle(
-                      color: Colors.teal
+                      color: Colors.black87
                   ),
                   icon: Icon(Icons.vpn_key)
               ),),
@@ -78,7 +78,7 @@ class _RegisterState extends State<Register> {
                 height: 45.0,
                 color: Colors.teal,
               child: new Text("Regsiter",style: TextStyle(
-                color: Colors.white
+
               ),),),
               SizedBox(height: 25.0,),
             ],

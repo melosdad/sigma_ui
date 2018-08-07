@@ -10,8 +10,12 @@ class _LandingState extends State<Landing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: new Text("Brand Selection"),
+        //backgroundColor: Colors.teal,
+        title: new Text("Brand Selection", style: TextStyle(
+          color: Colors.black87
+        ),),
         centerTitle: true,
       ),
       body: new Center(
@@ -36,7 +40,7 @@ class _LandingState extends State<Landing> {
             //height: 45.0,
             color: Colors.teal,
             child: new Text("Continue ", style: TextStyle(
-                color: Colors.white
+
             ),),),
         ),),
     );
