@@ -50,7 +50,7 @@ class _RegisterState extends State<Register> {
               TextFormField(decoration: InputDecoration(
                   labelText: "Email Address",
                   labelStyle: TextStyle(
-                      color: Colors.teal
+                      color: Colors.black
                   ),
                   icon: Icon(Icons.mail)
               ),),
