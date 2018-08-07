@@ -48,13 +48,6 @@ class _RegisterState extends State<Register> {
                   icon: Icon(Icons.account_circle)
               ),),
               TextFormField(decoration: InputDecoration(
-                  labelText: "Cell Number",
-                  labelStyle: TextStyle(
-                      color: Colors.teal
-                  ),
-                  icon: Icon(Icons.phone_android)
-              ),),
-              TextFormField(decoration: InputDecoration(
                   labelText: "Email Address",
                   labelStyle: TextStyle(
                       color: Colors.teal
