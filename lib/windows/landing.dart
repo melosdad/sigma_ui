@@ -9,6 +9,8 @@ class Landing extends StatefulWidget {
 class _LandingState extends State<Landing> {
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
 
       appBar: AppBar(
@@ -24,6 +26,122 @@ class _LandingState extends State<Landing> {
             new SizedBox(height: 20.0,),
             new Text("Please select the brands you'd like to follower:", textAlign: TextAlign.center, style: TextStyle(
               fontSize: 22.0
+            ),
+            ),
+            new Card(
+              child: ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    new Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Mtn",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    new Checkbox(
+                        value: false,
+                        onChanged: (bool value) {})
+                  ],
+                ),
+                leading: new CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: new Image.asset("assets/mtn.png"),),
+              ),
+            ),
+
+        new Card(
+          child:ListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Heineken",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  new Checkbox(
+                      value: false,
+                      onChanged: (bool value) {})
+                ],
+              ),
+              leading: new CircleAvatar(
+                backgroundColor: Colors.white,
+                child: new Image.asset("assets/heineken.png"),),
+            ),
+        ),
+
+            new Card(
+              child:ListTile(
+              title:Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Telkom Mobile",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  new Checkbox(
+                      value: false,
+                      onChanged: (bool value) {})
+                ],
+              ),
+              leading: new CircleAvatar(
+                backgroundColor: Colors.white,
+                child: new Image.asset("assets/telkom.jpeg"),),
+            ),
+      ),
+
+        new Card(
+          child:ListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Budweiser",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  new Checkbox(
+                      value: false,
+                      onChanged: (bool value) {})
+                ],
+              ),
+              leading: new CircleAvatar(
+                backgroundColor: Colors.white,
+                child: new Image.asset("assets/budweiser.jpg"),),
+
             ),)
           ],
         ),
@@ -43,6 +161,8 @@ class _LandingState extends State<Landing> {
 
             ),),),
         ),),
+      
+      
     );
   }
 }

@@ -30,6 +30,10 @@ flutter:
   assets:
     - assets/logo.png
     - assets/cover.jpg
+    - assets/mtn.png
+    - assets/budweiser.jpg
+    - assets/heineken.png
+    - assets/telkom.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
