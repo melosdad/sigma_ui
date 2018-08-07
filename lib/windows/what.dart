@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/windows/landing.dart';
+import 'package:sigma/windows/dash.dart';
 
 class What extends StatefulWidget {
   @override
@@ -50,7 +51,8 @@ class _WhatState extends State<What> {
                       minWidth: 100.0,
                       height: 42.0,
                       onPressed: () {
-
+                        var route = new MaterialPageRoute(builder:  (BuildContext context) => new Dash(),);
+                        Navigator.of(context).push(route);
                       },splashColor: Colors.black45,
                       color: Colors.lightBlueAccent,
                       child: Text('Brand', style: TextStyle(color: Colors.white)),
