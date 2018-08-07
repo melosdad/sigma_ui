@@ -14,7 +14,9 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         centerTitle: true,
-        title: new Text("Profile"),
+        title: new Text("Profile", style: TextStyle(
+          color: Colors.black87
+        )),
       ),
       body: new ListView(
         children: <Widget>[
@@ -79,7 +81,7 @@ class _ProfileState extends State<Profile> {
               height: 45.0,
               color: Colors.teal,
               child: new Text("Update Profile", style: TextStyle(
-                  color: Colors.white
+                  color: Colors.black87
               ),),),
           ),
         ],
