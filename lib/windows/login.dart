@@ -160,6 +160,15 @@ fontSize: 20.0
               ),
               new SizedBox(height: 15.0,),
 
+              MaterialButton(onPressed: (){
+
+              },
+                height: 45.0,
+                color: Colors.teal,
+                child: new Text("Login", style: TextStyle(
+                  color: Colors.white
+                ),),),
+
             ],
           ),
         ),

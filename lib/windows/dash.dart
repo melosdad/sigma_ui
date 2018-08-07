@@ -32,6 +32,7 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       bottomNavigationBar: new Material(
         color: Colors.blue,
         child: new TabBar(

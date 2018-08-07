@@ -82,8 +82,11 @@ class _RegisterState extends State<Register> {
                 );
                 Navigator.of(context).push(route);
               },
+                height: 45.0,
                 color: Colors.teal,
-              child: new Text("Regsiter"),),
+              child: new Text("Regsiter",style: TextStyle(
+                color: Colors.white
+              ),),),
               SizedBox(height: 25.0,),
             ],
           ),
