@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:sigma/windows/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:sigma/windows/messenger.dart';
 
 class Contacts extends StatefulWidget {
   final Map userData;
@@ -15,14 +16,18 @@ class Contacts extends StatefulWidget {
 class _ContactsState extends State<Contacts> {
 
   Future<List> getUserContacts() async {
-    //final response = await http.get(Constants.getfollowingsUrl+"?user_id=" +widget.userData['user_id'] +"&brand_id="+ widget.userData['user_id']+"&type="+widget.userData['type']);
-    final response = await http.get("http://192.168.43.153/sigma/getfollowings.php?user_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&brand_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&type=customer");
-    return json.decode(response.body)['data'] ;
+    final response = await http.get(Constants.getfollowingsUrl+"?user_id="+widget.userData['user_id']+"&brand_id="+widget.userData['user_id']+"&type="+widget.userData['user_type']);
+    //final response = await http.get("http://192.168.43.153/sigma/getfollowings.php?user_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&brand_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&type=customer");
+    return json.decode(response.body)['data'];
+    //print(response.body);
   }
 
 
   @override
   Widget build(BuildContext context) {
+
+   // getUserContacts();
+
     return Scaffold(
 
       appBar: AppBar(
@@ -47,6 +52,7 @@ class _ContactsState extends State<Contacts> {
             if (snapshot.hasError) print(snapshot.error);
 
             return snapshot.hasData
+                 //print(snapshot.data);
                 ? new ItemList(
                 snapshot.data,
                 widget.userData
@@ -94,36 +100,47 @@ class _ItemListState extends State<ItemList> {
           //checkStatus.add(false);
           return new Container(
             padding: const EdgeInsets.all(10.0),
-            child: new Card(
-              color: Colors.tealAccent,
-              child: ListTile(
-                title: Row(
+              child: GestureDetector(
+                onTap: (){
+                  var route = new MaterialPageRoute(
+                    builder: (BuildContext context) => new Messenger(widget.userData['user_id'],widget.list[i]),
+                  );
+                  Navigator.of(context).push(route);
+                },
+                child: Column(
                   children: <Widget>[
-                    new Expanded(
-                      child: Column(
+                    ListTile(
+                      title: Row(
                         children: <Widget>[
-                          Text(
-                            widget.list[i]['first_name'] + " " + widget.list[i]['last_name'],
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                            ),
-                          ),
+                          new Expanded(
+                            child:
+                                Text(
+                                  widget.list[i]['first_name'] + " " +  widget.list[i]['last_name'],
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+
+                          )
                         ],
+
                       ),
+                      leading: new CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: setProfilePic(widget.list[i]['image'])),
                     ),
-//                    new Checkbox(
-//                        value: checkStatus[i],
-//                        onChanged: (bool value) {
-//                          onChanged(value,i, widget.list[i]['user_id']);
-//                        })
+                    Container(
+                      height: 1.0,
+                      width: 350.0,
+                      color: Colors.black,
+                      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    )
                   ],
                 ),
-                leading: new CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: setProfilePic(widget.list[i]['image'])),
               ),
-            ),
+
+
           );
         });
   }
