@@ -7,6 +7,7 @@ import 'package:sigma/windows/constants.dart';
 
 
 List brandsSelected = [];
+List<bool> checkStatus = List();
 class Landing extends StatefulWidget {
   final Map userData;
   Landing(this.userData);
@@ -27,7 +28,6 @@ class _LandingState extends State<Landing> {
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
 
@@ -139,11 +139,13 @@ class _ItemListState extends State<ItemList> {
     }
   }
 
-  void onChanged(bool value, String brandID) {
+  void onChanged(bool value,int where, String brandID) {
     setState(() {
-      _isChecked = value;
 
-      if (_isChecked == true) {
+      checkStatus[where] = value;
+      //_isChecked = value;
+
+      if (checkStatus[where] == true) {
         int index = brandsSelected.length;
         brandsSelected.insert(index, brandID);
         follow(brandID);
@@ -173,26 +175,14 @@ class _ItemListState extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
 
-    print(widget.list.length);
     return new ListView.builder(
         itemCount: widget.list == null ? 0 : widget.list.length,
         shrinkWrap: true,
         itemBuilder: (context, i) {
+          checkStatus.add(false);
           return new Container(
             padding: const EdgeInsets.all(10.0),
-            child: new GestureDetector(
-              onTap: () {
-//                var route = new MaterialPageRoute(
-//                  builder: (BuildContext context) => new Provider(
-//                      widget.list[i]['company_name'],
-//                      widget.list[i]['spid'],
-//                      widget.service,
-//                      widget.list[i]['logo'],
-//                      widget.custData),
-//                );
-//                Navigator.of(context).push(route);
-              },
-              child: new Card(
+            child: new Card(
                 color: Colors.tealAccent,
                 child: ListTile(
                   title: Row(
@@ -211,9 +201,9 @@ class _ItemListState extends State<ItemList> {
                         ),
                       ),
                       new Checkbox(
-                          value: _isChecked,
+                          value: checkStatus[i],
                           onChanged: (bool value) {
-                            onChanged(value, widget.list[i]['user_id']);
+                            onChanged(value,i, widget.list[i]['user_id']);
                           })
                     ],
                   ),
@@ -222,7 +212,6 @@ class _ItemListState extends State<ItemList> {
                       child: setProfilePic(widget.list[i]['image'])),
                 ),
               ),
-            ),
           );
         });
   }
