@@ -15,12 +15,9 @@ class Contacts extends StatefulWidget {
 class _ContactsState extends State<Contacts> {
 
   Future<List> getUserContacts() async {
-    final response = await http.get(Constants.getfollowingsUrl, headers: {
-      "user_id": widget.userData['user_id'],
-      "brand_id": widget.userData['user_id'],
-      "type": widget.userData['type']
-    });
-    return json.decode(response.body)['data'];
+    //final response = await http.get(Constants.getfollowingsUrl+"?user_id=" +widget.userData['user_id'] +"&brand_id="+ widget.userData['user_id']+"&type="+widget.userData['type']);
+    final response = await http.get("http://192.168.43.153/sigma/getfollowings.php?user_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&brand_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&type=customer");
+    return json.decode(response.body)['data'] ;
   }
 
 
@@ -31,7 +28,7 @@ class _ContactsState extends State<Contacts> {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: new Text("Contacts",style: TextStyle(
-          color: Colors.black87
+            color: Colors.black87
         ),),
         centerTitle: true,
         actions: <Widget>[

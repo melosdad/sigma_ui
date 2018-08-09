@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/windows/dash.dart';
+import 'package:http/http.dart' as http;
+import 'package:validator/validator.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:sigma/windows/constants.dart';
+
 
 class Profile extends StatefulWidget {
   final Map userData;
@@ -15,6 +21,95 @@ class _ProfileState extends State<Profile> {
   TextEditingController txtLastName = new TextEditingController();
   TextEditingController txtCell = new TextEditingController();
   TextEditingController txtEmail = new TextEditingController();
+
+  void showErrorDialog(String errorMsg) {
+    showDialog<Null>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          //title: new Text('Rewind and remember'),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text(errorMsg),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future register() async {
+    Map<String, String> headers = new Map<String, String>();
+    headers['Accept'] = "application/json";
+
+    String name = txtFirstName.text;
+    String surname = txtLastName.text;
+    String email = txtEmail.text;
+    String cell = txtCell.text;
+
+
+    try {
+      await http.post(Constants.registerUrl, body: {
+        "first_name": name,
+        "last_name": surname,
+        "email": email,
+        "cell": cell
+      }).then((response) {
+        //print(json.decode(response.body));
+
+        String message;
+
+        message = json.decode(response.body)['data'];
+        if (!matches(message, "Registration successful")) {
+          String msg =
+              "Sorry your registration was not successful, please try again later.";
+          showErrorDialog(msg);
+          return;
+        } else {
+          showDialog<Null>(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext context) {
+              return new AlertDialog(
+                content: new SingleChildScrollView(
+                  child: new ListBody(
+                    children: <Widget>[
+                      new Text(message),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text('Ok'),
+                    onPressed: () {
+
+                      //getUserData();
+
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      });
+    } catch (e) {
+      String msg = "Please check your Internet Connection.";
+      showErrorDialog(msg);
+      return;
+    }
+  }
 
   Widget setProfilePic() {
     if (widget.userData['image'].toString().isEmpty) {

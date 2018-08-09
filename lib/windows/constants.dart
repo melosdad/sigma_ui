@@ -10,6 +10,7 @@ class Constants {
   static final followUrl = "http://192.168.43.153/sigma/follows.php";
   static final unfollowUrl = "http://192.168.43.153/sigma/unfollow.php";
   static final getfollowingsUrl = "http://192.168.43.153/sigma/getfollowings.php";
+  static final updateProfile ;
 
 
 }
