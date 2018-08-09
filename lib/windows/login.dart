@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/windows/register.dart';
+import 'package:http/http.dart' as http;
+import 'package:validator/validator.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:sigma/windows/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sigma/windows/dash.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -10,102 +18,128 @@ class _LoginState extends State<Login> {
   TextEditingController txtEmail = new TextEditingController();
   TextEditingController txtPassword = new TextEditingController();
 
-//  void showErrorDialog(String errorMsg) {
-//    showDialog<Null>(
-//      context: context,
-//      barrierDismissible: false, // user must tap button!
-//      builder: (BuildContext context) {
-//        return new AlertDialog(
-//          //title: new Text('Rewind and remember'),
-//          content: new SingleChildScrollView(
-//            child: new ListBody(
-//              children: <Widget>[
-//                new Text(errorMsg),
-//              ],
-//            ),
-//          ),
-//          actions: <Widget>[
-//            new FlatButton(
-//              child: new Text('Ok'),
-//              onPressed: () {
-//                Navigator.pop(context);
-//              },
-//            ),
-//          ],
-//        );
-//      },
-//    );
-//  }
-//
+  saveEmail(String email) async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString("email", email);
+  }
 
-//  Login Function
-//  Future login() async{
-//
-//    Map<String, String> headers = new Map<String, String>();
-//    headers['Accept'] = "application/json";
-//    new Center(
-//      child: new CircularProgressIndicator(),
-//    );
-//
-//    String email = txtEmail.text;
-//    String password = txtPassword.text;
-//
-//    if (isLength(email, 5) == false) {
-//      String msg =
-//          "Sorry please enter your Email Address, and make sure your Email Address is valid.";
-//      showErrorDialog(msg);
-//      return;
-//    }
-//
-//    if (isLength(password, 5) == false) {
-//      String msg =
-//          "Sorry please enter your Password, and make sure your Password has a minimum length of 5 characters and that it contains Alphabets, Numbers, and Special Characters.";
-//      showErrorDialog(msg);
-//      return;
-//    }
-//
-//
-//    try{
-//
-//      await http.post(Constants.loginUrl,body: {
-//        'email': email,
-//        'password':password
-//      }).then((response)async {
-//
-//        String message;
-//        message = json.decode(response.body)["Message"];
-//        if(message != null){
-//          String msg =
-//              "Sorry you have entered incorrect Login Details, please try again.";
-//          showErrorDialog(msg);
-//          return;
-//        }
-//        else{
-//
-//          saveEmail(email);
-//          savePass(password);
-//
-//          Map custData = jsonDecode(response.body)['customer'];
-//          var route = new MaterialPageRoute(
-//            builder: (BuildContext context) => new Dash(custData),
-//          );
-//          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
-//
-//        }
-//
-//      });
-//
-//    }catch (e){
-//
-//      //print(e.toString());
-//      String msg =
-//          "Please check your Internet Connection.";
-//      showErrorDialog(msg);
-//      return;
-//    }
-//
-//
-//  }
+  savePass(String pass) async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString("username", pass);
+  }
+
+  Future<String> getEmail() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String email = preferences.getString("email");
+
+    return email;
+
+  }
+
+  Future<String> getPass() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String pass = preferences.getString("username");
+
+    return pass;
+
+  }
+
+
+  void showErrorDialog(String errorMsg) {
+    showDialog<Null>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          //title: new Text('Rewind and remember'),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text(errorMsg),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Future login() async{
+
+    Map<String, String> headers = new Map<String, String>();
+    headers['Accept'] = "application/json";
+    new Center(
+      child: new CircularProgressIndicator(),
+    );
+
+    String email = txtEmail.text;
+    String password = txtPassword.text;
+
+    if (isLength(email, 5) == false) {
+      String msg =
+          "Sorry please enter your Email Address, and make sure your Email Address is valid.";
+      showErrorDialog(msg);
+      return;
+    }
+
+    if (isLength(password, 5) == false) {
+      String msg =
+          "Sorry please enter your Password, and make sure your Password has a minimum length of 5 characters and that it contains Alphabets, Numbers, and Special Characters.";
+      showErrorDialog(msg);
+      return;
+    }
+
+
+    try{
+
+      await http.post(Constants.loginUrl,body: {
+        'email': email,
+        'password':password
+      }).then((response)async {
+
+        String message;
+        message = json.decode(response.body)["Message"];
+        if(message != null){
+          String msg =
+              "Sorry you have entered incorrect Login Details, please try again.";
+          showErrorDialog(msg);
+          return;
+        }
+        else{
+
+          saveEmail(email);
+          savePass(password);
+
+          Map custData = jsonDecode(response.body)['customer'];
+          var route = new MaterialPageRoute(
+            builder: (BuildContext context) => new Dash(custData),
+          );
+          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+
+        }
+
+      });
+
+    }catch (e){
+
+      //print(e.toString());
+      String msg =
+          "Please check your Internet Connection.";
+      showErrorDialog(msg);
+      return;
+    }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {

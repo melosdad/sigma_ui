@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sigma/windows/dash.dart';
+import 'package:sigma/windows/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -68,9 +68,9 @@ class _LandingState extends State<Landing> {
           padding: const EdgeInsets.all(15.0),
           child: MaterialButton(onPressed: (){
             var route = new MaterialPageRoute(
-              builder: (BuildContext context) => new Dash(widget.userData),
+              builder: (BuildContext context) => new Profile(widget.userData),
             );
-            Navigator.of(context).push(route);
+            Navigator.of(context).pushAndRemoveUntil(route,(Route<dynamic> route) => false);
           },
             //height: 45.0,
             color: Colors.teal,
@@ -96,7 +96,7 @@ class ItemList extends StatefulWidget {
 }
 
 class _ItemListState extends State<ItemList> {
-  bool _isChecked = false;
+ // bool _isChecked = false;
 
   Future follow(String brandID) async {
     Map<String, String> headers = new Map<String, String>();
@@ -114,7 +114,7 @@ class _ItemListState extends State<ItemList> {
       String msg = "Please check your Internet Connection.";
       //showErrorDialog(e.toString());
 
-      print(e.toString());
+      print(msg);
       return;
     }
   }
@@ -134,7 +134,7 @@ class _ItemListState extends State<ItemList> {
       String msg = "Please check your Internet Connection.";
       //showErrorDialog(e.toString());
 
-      print(e.toString());
+      print(msg);
       return;
     }
   }
