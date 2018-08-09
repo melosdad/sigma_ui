@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/windows/profile.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:sigma/windows/constants.dart';
+import 'package:http/http.dart' as http;
 
 class Contacts extends StatefulWidget {
   final Map userData;
@@ -9,6 +13,17 @@ class Contacts extends StatefulWidget {
 }
 
 class _ContactsState extends State<Contacts> {
+
+  Future<List> getUserContacts() async {
+    final response = await http.get(Constants.getfollowingsUrl, headers: {
+      "user_id": widget.userData['user_id'],
+      "brand_id": widget.userData['user_id'],
+      "type": widget.userData['type']
+    });
+    return json.decode(response.body)['data'];
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +43,91 @@ class _ContactsState extends State<Contacts> {
           })
         ],
       ),
+
+      body:  FutureBuilder<List>(
+          future: getUserContacts(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+
+            return snapshot.hasData
+                ? new ItemList(
+                snapshot.data,
+                widget.userData
+            )
+                : new Center(
+              child: new Text("No Contacts"),
+            );
+          }),
     );
+  }
+}
+
+class ItemList extends StatefulWidget {
+  final List list;
+  final Map userData;
+  ItemList(this.list, this.userData);
+  @override
+  _ItemListState createState() => _ItemListState();
+}
+
+class _ItemListState extends State<ItemList> {
+  // bool _isChecked = false;
+
+  Widget setProfilePic(String url) {
+    if (url.isEmpty) {
+      return Icon(
+        Icons.account_circle,
+        size: 40.0,
+        color: Colors.black,
+      );
+    }
+
+    return CircleAvatar(
+        backgroundColor: Colors.white,
+        child: new ImageUrl(url));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new ListView.builder(
+        itemCount: widget.list == null ? 0 : widget.list.length,
+        shrinkWrap: true,
+        itemBuilder: (context, i) {
+          //checkStatus.add(false);
+          return new Container(
+            padding: const EdgeInsets.all(10.0),
+            child: new Card(
+              color: Colors.tealAccent,
+              child: ListTile(
+                title: Row(
+                  children: <Widget>[
+                    new Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            widget.list[i]['first_name'] + " " + widget.list[i]['last_name'],
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+//                    new Checkbox(
+//                        value: checkStatus[i],
+//                        onChanged: (bool value) {
+//                          onChanged(value,i, widget.list[i]['user_id']);
+//                        })
+                  ],
+                ),
+                leading: new CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: setProfilePic(widget.list[i]['image'])),
+              ),
+            ),
+          );
+        });
   }
 }

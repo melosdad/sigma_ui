@@ -119,9 +119,9 @@ class _LoginState extends State<Login> {
           saveEmail(email);
           savePass(password);
 
-          Map custData = jsonDecode(response.body)['customer'];
+          Map userData = json.decode(response.body)['data'];
           var route = new MaterialPageRoute(
-            builder: (BuildContext context) => new Dash(custData),
+            builder: (BuildContext context) => new Dash(userData),
           );
           Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
 
@@ -202,7 +202,7 @@ fontSize: 20.0
               new SizedBox(height: 15.0,),
 
               MaterialButton(onPressed: (){
-
+                  login();
               },
                 height: 45.0,
                 color: Colors.teal,
