@@ -18,10 +18,10 @@ class _TrendsState extends State<Trends> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
-            var route = new MaterialPageRoute(
-              builder: (BuildContext context) => new Profile(),
-            );
-            Navigator.of(context).push(route);
+//            var route = new MaterialPageRoute(
+//              builder: (BuildContext context) => new Profile(),
+//            );
+//            Navigator.of(context).push(route);
           })
         ],
       ),

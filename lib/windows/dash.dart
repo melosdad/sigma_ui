@@ -4,9 +4,9 @@ import 'package:sigma/windows/contacts.dart';
 import 'package:sigma/windows/trends.dart';
 
 class Dash extends StatefulWidget {
-//  final Map custData;
-//
-//  Dash(this.custData);
+final Map userData;
+
+Dash(this.userData);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -57,8 +57,8 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
       body: new TabBarView(
           controller: controller,
           children: <Widget>[
-            new Chats(),
-            new Contacts(),
+            new Chats(widget.userData),
+            new Contacts(widget.userData),
             new Trends(),
           ]),
 

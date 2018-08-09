@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sigma/windows/profile.dart';
 
 class Contacts extends StatefulWidget {
+  final Map userData;
+  Contacts(this.userData);
   @override
   _ContactsState createState() => _ContactsState();
 }
@@ -20,7 +22,7 @@ class _ContactsState extends State<Contacts> {
         actions: <Widget>[
           IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
-              builder: (BuildContext context) => new Profile(),
+              builder: (BuildContext context) => new Profile(widget.userData),
             );
             Navigator.of(context).push(route);
           })
