@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
                       var route = new MaterialPageRoute(
                         builder: (BuildContext context) => new Dash(widget.userData),
                       );
-                      Navigator.of(context).push(route);
+                      Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
                     },
                   ),
                 ],
