@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/windows/profile.dart';
-import 'package:sigma/windows/landing.dart';
+import 'package:sigma/windows/brands.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:sigma/windows/constants.dart';
@@ -40,7 +40,7 @@ class _ContactsState extends State<Contacts> {
         actions: <Widget>[
           IconButton(icon: Icon(Icons.add, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
-              builder: (BuildContext context) => new Landing(widget.userData),
+              builder: (BuildContext context) => new Brands(widget.userData),
             );
             Navigator.of(context).push(route);
           },),
