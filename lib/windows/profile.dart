@@ -73,7 +73,7 @@ class _ProfileState extends State<Profile> {
         message = json.decode(response.body)['data'];
         if (!matches(message, "Registration successful")) {
           String msg =
-              "Sorry your registration was not successful, please try again later.";
+              "Sorry your registration was not successful, please  try again later.";
           showErrorDialog(msg);
           return;
         } else {
