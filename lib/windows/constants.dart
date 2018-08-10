@@ -14,5 +14,7 @@ class Constants {
   static final getChatConversationsUrl = "http://192.168.43.153/sigma/getchatsconversations.php";
   static final sendMessageUrl = "http://192.168.43.153/sigma/postchat.php";
   static final updateProfileUrl = "http://192.168.43.153/sigma/updateprofile.php";
+  static final updatePPUrl = "http://192.168.43.153/sigma/uploadpp.php";
+  static final base_url = "http://192.168.43.153/sigma/";
 
 }

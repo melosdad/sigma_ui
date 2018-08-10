@@ -59,7 +59,7 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
           children: <Widget>[
             new Chats(widget.userData),
             new Contacts(widget.userData),
-            new Trends(),
+            new Trends(widget.userData),
           ]),
 
     );

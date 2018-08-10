@@ -169,7 +169,7 @@ class _ItemListState extends State<ItemList> {
 
     return CircleAvatar(
         backgroundColor: Colors.white,
-        child: new ImageUrlP(url));
+        child: new ImageUrlP(Constants.base_url+url));
   }
 
   @override

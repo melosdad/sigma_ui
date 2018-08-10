@@ -106,9 +106,11 @@ class _LoginState extends State<Login> {
         'password':password
       }).then((response)async {
 
-        String message;
-        message = json.decode(response.body)["Message"];
-        if(message != null){
+        Map results  = json.decode(response.body);
+
+        String status = results['status'];
+        print(status);
+        if(status == "failure"){
           String msg =
               "Sorry you have entered incorrect Login Details, please try again.";
           showErrorDialog(msg);
@@ -134,7 +136,7 @@ class _LoginState extends State<Login> {
       //print(e.toString());
       String msg =
           "Please check your Internet Connection.";
-      showErrorDialog(msg);
+      showErrorDialog(e.toString());
       return;
     }
 
@@ -143,6 +145,22 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+
+    txtEmail.text = "";
+    txtPassword.text = "";
+
+    void setEmail(String email){
+      txtEmail.text = email;
+    }
+
+    void setPass(String pass){
+      txtPassword.text = pass;
+    }
+
+
+    getEmail().then(setEmail);
+    getPass().then(setPass);
+
     return Scaffold(body:
       new Center(
         child: Padding(

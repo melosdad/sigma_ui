@@ -18,8 +18,7 @@ class _ContactsState extends State<Contacts> {
 
   Future<List> getUserContacts() async {
     final response = await http.get(Constants.getfollowingsUrl+"?user_id="+widget.userData['user_id']+"&brand_id="+widget.userData['user_id']+"&type="+widget.userData['user_type']);
-    //final response = await http.get("http://192.168.43.153/sigma/getfollowings.php?user_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&brand_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&type=customer");
-    return json.decode(response.body)['data'];
+return json.decode(response.body)['data'];
     //print(response.body);
   }
 
@@ -38,12 +37,12 @@ class _ContactsState extends State<Contacts> {
         ),),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.add, color: Colors.black87,), onPressed: (){
+          widget.userData['user_type'] == "customer" ? IconButton(icon: Icon(Icons.add, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
               builder: (BuildContext context) => new Brands(widget.userData),
             );
             Navigator.of(context).push(route);
-          },),
+          },) :
           IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
               builder: (BuildContext context) => new Profile(widget.userData),
@@ -96,7 +95,7 @@ class _ItemListState extends State<ItemList> {
 
     return CircleAvatar(
         backgroundColor: Colors.white,
-        child: new ImageUrl(url));
+        child: new ImageUrl(Constants.base_url+url));
   }
 
   @override

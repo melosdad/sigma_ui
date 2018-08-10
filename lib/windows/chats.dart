@@ -17,8 +17,7 @@ class Chats extends StatefulWidget {
 class _ChatsState extends State<Chats> {
 
   Future<List> getUserChats() async {
-    final response = await http.get(Constants.getChatsUrl+"?user_id="+widget.userData['user_id']);
-    //final response = await http.get("http://192.168.43.153/sigma/getfollowings.php?user_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&brand_id=4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a&type=customer");
+    final response = await http.get(Constants.getChatsUrl+"?user_id="+widget.userData['user_id']+"&type="+widget.userData['user_type']);
     return json.decode(response.body)['data'];
     //print(response.body);
   }
@@ -86,7 +85,7 @@ class _ItemListState extends State<ItemList> {
 
     return CircleAvatar(
         backgroundColor: Colors.white,
-        child: new ImageUrl(url));
+        child: new ImageUrl(Constants.base_url+url));
   }
 
   @override
@@ -129,12 +128,7 @@ class _ItemListState extends State<ItemList> {
                         backgroundColor: Colors.white,
                         child: setProfilePic(widget.list[i]['image'])),
                   ),
-                  Container(
-                    height: 1.0,
-                    width: 350.0,
-                    color: Colors.black,
-                    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                  )
+
                 ],
               ),
             ),

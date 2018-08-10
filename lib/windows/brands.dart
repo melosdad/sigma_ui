@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sigma/windows/contacts.dart';
+import 'package:sigma/windows/dash.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -68,7 +68,7 @@ class _BrandsState extends State<Brands> {
         padding: const EdgeInsets.all(15.0),
         child: MaterialButton(onPressed: (){
           var route = new MaterialPageRoute(
-            builder: (BuildContext context) => new Contacts(widget.userData),
+            builder: (BuildContext context) => new Dash(widget.userData),
           );
           Navigator.of(context).pushAndRemoveUntil(route,(Route<dynamic> route) => false);
         },
@@ -169,7 +169,7 @@ class _ItemListState extends State<ItemList> {
 
     return CircleAvatar(
         backgroundColor: Colors.white,
-        child: new ImageUrlP(url));
+        child: new ImageUrlP(Constants.base_url+url));
   }
 
   @override
