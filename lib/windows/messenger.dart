@@ -18,6 +18,7 @@ final ThemeData androidTheme = new ThemeData(
 );
 
  String defaultUserName = "User";
+ int counter = 0;
 
 class Msg extends StatelessWidget {
   Msg({this.txt, this.animationController});
@@ -91,6 +92,7 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
       );
 
       _messages.insert(i,msg);
+      msg.animationController.forward();
    // _submitMsg(results[i]['message']);
     }
     //print(results[0]['message']);
@@ -128,8 +130,8 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
 
   @override
   Widget build(BuildContext context) {
-
     getConversations();
+
 
     defaultUserName = widget.userData['first_name'];
 
@@ -233,7 +235,7 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
 
     sendMessage(txt);
     setState(() {
-      _messages.insert(0, msg);
+      _messages.insert(_messages.length -1, msg);
      // _getConversations();
     });
     msg.animationController.forward();

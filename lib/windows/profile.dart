@@ -69,15 +69,18 @@ class _ProfileState extends State<Profile> {
       }).then((response) {
         //print(json.decode(response.body));
 
-        String message;
+        Map message;
 
         message = json.decode(response.body)['data'];
-        if (!matches(message, "Profile updated")) {
+        print(message);
+        if(message == null){
           String msg =
               "Sorry your profile was not successful updated, please  try again later.";
           showErrorDialog(msg);
           return;
-        } else {
+        }
+        else{
+
           showDialog<Null>(
             context: context,
             barrierDismissible: false, // user must tap button!
@@ -86,7 +89,7 @@ class _ProfileState extends State<Profile> {
                 content: new SingleChildScrollView(
                   child: new ListBody(
                     children: <Widget>[
-                      new Text(message),
+                      new Text("Profile was successfully updated."),
                     ],
                   ),
                 ),
@@ -94,8 +97,9 @@ class _ProfileState extends State<Profile> {
                   new FlatButton(
                     child: new Text('Ok'),
                     onPressed: () {
+                      Map userData = json.decode(response.body)['data'];
                       var route = new MaterialPageRoute(
-                        builder: (BuildContext context) => new Dash(widget.userData),
+                        builder: (BuildContext context) => new Dash(userData),
                       );
                       Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
                     },
@@ -105,10 +109,14 @@ class _ProfileState extends State<Profile> {
             },
           );
         }
+
+
+
       });
     } catch (e) {
       String msg = "Please check your Internet Connection.";
       showErrorDialog(msg);
+      //print(e.toString());
       return;
     }
   }
@@ -171,14 +179,14 @@ class _ProfileState extends State<Profile> {
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: new TextFormField(
+            child: new TextField(
               controller: txtCell,
               decoration: InputDecoration(labelText: "Cell Number:"),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: new TextFormField(
+            child: new TextField(
               controller: txtEmail,
               decoration: InputDecoration(labelText: "Email Address:"),
             ),
