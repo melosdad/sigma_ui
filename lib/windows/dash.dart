@@ -46,7 +46,7 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
               text: "Chats",
               icon: new Icon(Icons.chat,color: Colors.black87,),),
             new Tab(
-              text: "Contacts",
+              text: "Brands",
               icon: new Icon(Icons.contacts,color: Colors.black87,),),
             new Tab(
               text: "Trends",

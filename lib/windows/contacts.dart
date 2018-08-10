@@ -33,7 +33,7 @@ class _ContactsState extends State<Contacts> {
 
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: new Text("Contacts",style: TextStyle(
+        title: new Text("Brands",style: TextStyle(
             color: Colors.black87
         ),),
         centerTitle: true,
@@ -66,7 +66,7 @@ class _ContactsState extends State<Contacts> {
                 widget.userData
             )
                 : new Center(
-              child: new Text("No Contacts"),
+              child: new Text("No Brands"),
             );
           }),
 
