@@ -169,7 +169,7 @@ class _ItemListState extends State<ItemList> {
 
     return CircleAvatar(
         backgroundColor: Colors.white,
-        child: new ImageUrl(url));
+        child: new ImageUrlP(url));
   }
 
   @override
@@ -217,10 +217,10 @@ class _ItemListState extends State<ItemList> {
   }
 }
 
-class ImageUrl extends StatelessWidget {
+class ImageUrlP extends StatelessWidget {
   final String url;
 
-  ImageUrl(this.url);
+  ImageUrlP(this.url);
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma/windows/profile.dart';
+import 'package:sigma/windows/landing.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:sigma/windows/constants.dart';
@@ -37,12 +38,19 @@ class _ContactsState extends State<Contacts> {
         ),),
         centerTitle: true,
         actions: <Widget>[
+          IconButton(icon: Icon(Icons.add, color: Colors.black87,), onPressed: (){
+            var route = new MaterialPageRoute(
+              builder: (BuildContext context) => new Landing(widget.userData),
+            );
+            Navigator.of(context).push(route);
+          },),
           IconButton(icon: Icon(Icons.account_circle, color: Colors.black87,), onPressed: (){
             var route = new MaterialPageRoute(
               builder: (BuildContext context) => new Profile(widget.userData),
             );
             Navigator.of(context).push(route);
-          })
+          }),
+
         ],
       ),
 
@@ -61,6 +69,7 @@ class _ContactsState extends State<Contacts> {
               child: new Text("No Contacts"),
             );
           }),
+
     );
   }
 }
@@ -103,7 +112,7 @@ class _ItemListState extends State<ItemList> {
               child: GestureDetector(
                 onTap: (){
                   var route = new MaterialPageRoute(
-                    builder: (BuildContext context) => new Messenger(widget.userData['user_id'],widget.list[i]),
+                    builder: (BuildContext context) => new Messenger(widget.userData,widget.list[i]),
                   );
                   Navigator.of(context).push(route);
                 },

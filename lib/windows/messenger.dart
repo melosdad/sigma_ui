@@ -13,29 +13,32 @@ final ThemeData androidTheme = new ThemeData(
   accentColor: Colors.green,
 );
 
-const String defaultUserName = "John Doe";
+ String defaultUserName = "User";
 
 class Messenger extends StatefulWidget {
   final Map brandData;
-  final String userID;
-  Messenger(this.userID,this.brandData);
+  final Map userData;
+  Messenger(this.userData,this.brandData);
   @override
   _MessengerState createState() => _MessengerState();
 }
 
 class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
 
+
   final List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
 
+
   @override
   Widget build(BuildContext context) {
+    defaultUserName = widget.userData['first_name'];
     return Scaffold(
       appBar: AppBar(
-        title: ListTile(
+        centerTitle: true,
           title: new Text(widget.brandData['first_name'] + " " + widget.brandData['last_name']),
-        ),
+
       ),
         body: new Column(children: <Widget>[
           new Flexible(
