@@ -130,7 +130,9 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
   Widget build(BuildContext context) {
 
     getConversations();
+
     defaultUserName = widget.userData['first_name'];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

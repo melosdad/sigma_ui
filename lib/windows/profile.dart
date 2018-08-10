@@ -49,7 +49,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Future register() async {
+  Future updateProfile() async {
     Map<String, String> headers = new Map<String, String>();
     headers['Accept'] = "application/json";
 
@@ -60,20 +60,21 @@ class _ProfileState extends State<Profile> {
 
 
     try {
-      await http.post(Constants.registerUrl, body: {
+      await http.post(Constants.updateProfileUrl, body: {
+        "user_id": widget.userData['user_id'],
         "first_name": name,
         "last_name": surname,
-        "email": email,
-        "cell": cell
+        "email_address": email,
+        "cell_number": cell
       }).then((response) {
         //print(json.decode(response.body));
 
         String message;
 
         message = json.decode(response.body)['data'];
-        if (!matches(message, "Registration successful")) {
+        if (!matches(message, "Profile updated")) {
           String msg =
-              "Sorry your registration was not successful, please  try again later.";
+              "Sorry your profile was not successful updated, please  try again later.";
           showErrorDialog(msg);
           return;
         } else {
@@ -93,9 +94,10 @@ class _ProfileState extends State<Profile> {
                   new FlatButton(
                     child: new Text('Ok'),
                     onPressed: () {
-
-                      //getUserData();
-
+                      var route = new MaterialPageRoute(
+                        builder: (BuildContext context) => new Dash(widget.userData),
+                      );
+                      Navigator.of(context).push(route);
                     },
                   ),
                 ],
@@ -131,7 +133,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     txtFirstName.text = widget.userData['first_name'];
     txtLastName.text = widget.userData['last_name'];
-    //txtCell.text = widget.userData['c']
+    txtCell.text = widget.userData['cell_number'];
+    txtEmail.text = widget.userData['email_address'];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -184,10 +187,7 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.all(15.0),
             child: MaterialButton(
               onPressed: () {
-                var route = new MaterialPageRoute(
-                  builder: (BuildContext context) => new Dash(widget.userData),
-                );
-                Navigator.of(context).push(route);
+                updateProfile();
               },
               height: 45.0,
               color: Colors.teal,
