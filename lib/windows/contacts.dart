@@ -111,10 +111,10 @@ class _ItemListState extends State<ItemList> {
             padding: const EdgeInsets.all(10.0),
               child: GestureDetector(
                 onTap: (){
-                  var route = new MaterialPageRoute(
-                    builder: (BuildContext context) => new Messenger(widget.userData,widget.list[i]),
-                  );
-                  Navigator.of(context).push(route);
+//                  var route = new MaterialPageRoute(
+//                    builder: (BuildContext context) => new Messenger(widget.userData,widget.list[i]),
+//                  );
+//                  Navigator.of(context).push(route);
                 },
                 child: Column(
                   children: <Widget>[

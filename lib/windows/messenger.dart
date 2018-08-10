@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:sigma/windows/constants.dart';
+import 'package:http/http.dart' as http;
 
 final ThemeData iOSTheme = new ThemeData(
   primarySwatch: Colors.red,
@@ -15,10 +19,50 @@ final ThemeData androidTheme = new ThemeData(
 
  String defaultUserName = "User";
 
+class Msg extends StatelessWidget {
+  Msg({this.txt, this.animationController});
+  final String txt;
+  final AnimationController animationController;
+
+  @override
+  Widget build(BuildContext ctx) {
+    return new SizeTransition(
+      sizeFactor: new CurvedAnimation(
+          parent: animationController, curve: Curves.easeOut),
+      axisAlignment: 0.0,
+      child: new Container(
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        child: new Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              margin: const EdgeInsets.only(right: 18.0),
+              child: new CircleAvatar(child: new Text(defaultUserName[0])),
+            ),
+            new Expanded(
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  // new Text(defaultUserName, style: Theme.of(ctx).textTheme.subhead),
+                  new Container(
+                    margin: const EdgeInsets.only(top: 6.0),
+                    child: new Text(txt),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class Messenger extends StatefulWidget {
   final Map brandData;
   final Map userData;
-  Messenger(this.userData,this.brandData);
+  final String chatID;
+  Messenger(this.userData,this.brandData, this.chatID);
   @override
   _MessengerState createState() => _MessengerState();
 }
@@ -30,9 +74,62 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
 
+  getConversations() async {
+   final response = await http.get(Constants.getChatConversationsUrl+"?chat_id="+widget.chatID);
+    //final response = await http.get("http://192.168.43.153/sigma/getchatsconversations.php?chat_id=6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b");
+
+    List results = json.decode(response.body)['data'];
+
+    for(int i = 0; i < results.length; i++){
+
+      Msg msg = new Msg(
+        txt:results[i]['message'],
+          animationController: new AnimationController(
+          vsync: this,
+          duration: new Duration(milliseconds: 800)
+      )
+      );
+
+      _messages.insert(i,msg);
+   // _submitMsg(results[i]['message']);
+    }
+    //print(results[0]['message']);
+
+//    Msg msg = new Msg(
+//      txt: ,
+//      animationController: new AnimationController(
+//          vsync: this,
+//          duration: new Duration(milliseconds: 800)
+//      ),
+//    );
+//
+  }
+
+  Future sendMessage(String message) async {
+    Map<String, String> headers = new Map<String, String>();
+    headers['Accept'] = "application/json";
+
+    try {
+      await http.post(Constants.sendMessageUrl, body: {
+        "user_id": widget.userData['user_id'],
+        "chat_id": widget.chatID,
+        "message": message,
+      }).then((response) {
+        //print(json.decode(response.body));
+
+      });
+    } catch (e) {
+//      String msg = "Please check your Internet Connection.";
+//      showErrorDialog(msg);
+//      return;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    getConversations();
     defaultUserName = widget.userData['first_name'];
     return Scaffold(
       appBar: AppBar(
@@ -47,8 +144,23 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
                 itemCount: _messages.length,
                 reverse: true,
                 padding: new EdgeInsets.all(6.0),
-              ))
-,
+              )),
+//,
+//          FutureBuilder<List>(
+//              future: getConversations(),
+//              builder: (context, snapshot) {
+//                if (snapshot.hasError) print(snapshot.error);
+//
+//                return snapshot.hasData
+//                //print(snapshot.data);
+//                    ? new ItemList(
+//                    snapshot.data,
+//                    widget.userData
+//                )
+//                    : new Center(
+//                  child: new Text("No Contacts"),
+//                );
+//              },),
           new Divider(height: 1.0),
           new Container(
             child: _buildComposer(),
@@ -116,8 +228,11 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
           duration: new Duration(milliseconds: 800)
       ),
     );
+
+    sendMessage(txt);
     setState(() {
       _messages.insert(0, msg);
+     // _getConversations();
     });
     msg.animationController.forward();
   }
@@ -132,43 +247,6 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
 
 }
 
-class Msg extends StatelessWidget {
-  Msg({this.txt, this.animationController});
-  final String txt;
-  final AnimationController animationController;
 
-  @override
-  Widget build(BuildContext ctx) {
-    return new SizeTransition(
-      sizeFactor: new CurvedAnimation(
-          parent: animationController, curve: Curves.easeOut),
-      axisAlignment: 0.0,
-      child: new Container(
-        margin: const EdgeInsets.symmetric(vertical: 8.0),
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(right: 18.0),
-              child: new CircleAvatar(child: new Text(defaultUserName[0])),
-            ),
-            new Expanded(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                 // new Text(defaultUserName, style: Theme.of(ctx).textTheme.subhead),
-                  new Container(
-                    margin: const EdgeInsets.only(top: 6.0),
-                    child: new Text(txt),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 
