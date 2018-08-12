@@ -155,11 +155,15 @@ class _LoginState extends State<Login> {
 
     void setPass(String pass){
       txtPassword.text = pass;
+      if(pass.length > 1){
+        login();
+      }
     }
 
 
     getEmail().then(setEmail);
     getPass().then(setPass);
+
 
     return Scaffold(body:
       new Center(
