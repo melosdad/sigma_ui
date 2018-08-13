@@ -181,9 +181,7 @@ class _ProfileState extends State<Profile> {
 
 
       if(response.statusCode==200){
-        String msg =
-            "Your profile picture was successfully uploaded";
-        showErrorDialog(msg);
+        updateProfile();
         return;
       }else{
         String msg =

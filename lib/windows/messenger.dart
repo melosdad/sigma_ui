@@ -146,6 +146,27 @@ class _MessengerState extends State<Messenger> with TickerProviderStateMixin {
     }
   }
 
+  Future unfollow(String brandID) async {
+    Map<String, String> headers = new Map<String, String>();
+    headers['Accept'] = "application/json";
+    try {
+      await http.post(Constants.unfollowUrl, body: {
+        "user_id": widget.userData['user_id'],
+        "brand_id": brandID,
+        "chat_id": widget.chatID
+      }).then((response) {
+        String result = json.decode(response.body)['data'];
+        print(result);
+      });
+    } catch (e) {
+      String msg = "Please check your Internet Connection.";
+      //showErrorDialog(e.toString());
+
+      print(msg);
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     getConversations();
@@ -156,6 +177,14 @@ class _MessengerState extends State<Messenger> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
+          actions: <Widget>[
+            new IconButton(
+                icon: Icon(Icons.delete),
+                tooltip: "Unfollow",
+                onPressed: () {
+                  unfollow(widget.brandData['user_id']);
+                })
+          ],
           title: new Text(widget.brandData['first_name'] +
               " " +
               widget.brandData['last_name']),
@@ -230,7 +259,6 @@ class _MessengerState extends State<Messenger> with TickerProviderStateMixin {
       sendMessage(txt);
       setState(() {
         _messages.insert(0, msg);
-        // _getConversations();
       });
       msg.animationController.forward();
     }
