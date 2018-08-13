@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:sigma/windows/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:sigma/windows/chats.dart';
+import 'package:sigma/windows/dash.dart';
 
 final ThemeData iOSTheme = new ThemeData(
   primarySwatch: Colors.red,
@@ -155,8 +156,17 @@ class _MessengerState extends State<Messenger> with TickerProviderStateMixin {
         "brand_id": brandID,
         "chat_id": widget.chatID
       }).then((response) {
-        String result = json.decode(response.body)['data'];
-        print(result);
+        if(widget.userData['user_type'] == 'customer'){
+          var route = new MaterialPageRoute(
+            builder: (BuildContext context) => new Dash(widget.userData),
+          );
+          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+        }else{
+          var route = new MaterialPageRoute(
+            builder: (BuildContext context) => new Chats(widget.userData),
+          );
+          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+        }
       });
     } catch (e) {
       String msg = "Please check your Internet Connection.";

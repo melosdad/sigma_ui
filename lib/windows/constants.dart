@@ -1,7 +1,7 @@
 class Constants {
 
   static final bool development = true;
-  static final String base_url = development ? "http://10.1.73.237/sigma/" : "https://sigma.start-x.co.za/";
+  static final String base_url = "https://sigma.start-x.co.za/";
 
   static final String registerUrl = base_url+ "register.php";
   static final String loginUrl = base_url+ "login.php";
