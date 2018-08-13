@@ -18,7 +18,7 @@ class Brands extends StatefulWidget {
 class _BrandsState extends State<Brands> {
 
   Future<List> getBrands() async {
-    final response = await http.get(Constants.getBrandsUrl);
+    final response = await http.get(Constants.getUnfollowedBrandsUrl+"?user_id="+widget.userData['user_id']);
     return json.decode(response.body)['data'];
   }
 
