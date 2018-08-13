@@ -1,20 +1,19 @@
 class Constants {
 
-  // static final loginUrl = "http://sigma.star-x.co.za/register.php";
- // static final loginUrl = "http://sigma.star-x.co.za/login.php";
+  static final development = true;
+  static final base_url = development ? "http://10.1.73.237/sigma/" : "https://sigma.start-x.co.za/";
 
-  static final registerUrl = "http://192.168.43.153/sigma/register.php";
-  static final loginUrl = "http://192.168.43.153/sigma/login.php";
-  static final updateUserTypeUrl = "http://192.168.43.153/sigma/updateusertype.php";
-  static final getBrandsUrl = "http://192.168.43.153/sigma/getbrands.php";
-  static final followUrl = "http://192.168.43.153/sigma/follows.php";
-  static final unfollowUrl = "http://192.168.43.153/sigma/unfollow.php";
-  static final getfollowingsUrl = "http://192.168.43.153/sigma/getfollowings.php";
-  static final getChatsUrl = "http://192.168.43.153/sigma/getuserchats.php";
-  static final getChatConversationsUrl = "http://192.168.43.153/sigma/getchatsconversations.php";
-  static final sendMessageUrl = "http://192.168.43.153/sigma/postchat.php";
-  static final updateProfileUrl = "http://192.168.43.153/sigma/updateprofile.php";
-  static final updatePPUrl = "http://192.168.43.153/sigma/uploadpp.php";
-  static final base_url = "http://192.168.43.153/sigma/";
+  static final String registerUrl = base_url+ "register.php";
+  static final String loginUrl = base_url+ "login.php";
+  static final String updateUserTypeUrl = base_url+  "updateusertype.php";
+  static final String getBrandsUrl = base_url+ "getbrands.php";
+  static final String followUrl = base_url+ "follows.php";
+  static final String unfollowUrl = base_url+ "unfollow.php";
+  static final String getfollowingsUrl = base_url+ "getfollowings.php";
+  static final String getChatsUrl = base_url+ "getuserchats.php";
+  static final String getChatConversationsUrl = base_url+ "getchatsconversations.php";
+  static final String sendMessageUrl = base_url+ "sigma/postchat.php";
+  static final String updateProfileUrl = base_url+ "updateprofile.php";
+  static final String updatePPUrl = base_url+ "uploadpp.php";
 
 }

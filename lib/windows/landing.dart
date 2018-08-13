@@ -57,7 +57,7 @@ class _LandingState extends State<Landing> {
                     widget.userData
                   )
                       : new Center(
-                    child: new CircularProgressIndicator(),
+                    child: new Text("No Brands"),
                   );
                 })
           ],

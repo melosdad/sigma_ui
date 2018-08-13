@@ -137,7 +137,7 @@ class _RegisterState extends State<Register> {
           if (!matches(message, "Registration successful")) {
             String msg =
                 "Sorry your registration was not successful, please try again later.";
-            showErrorDialog(msg);
+            showErrorDialog(message);
             return;
           } else {
             showDialog<Null>(

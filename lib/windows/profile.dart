@@ -161,7 +161,7 @@ class _ProfileState extends State<Profile> {
     Future upload(File imageFile) async{
       var stream= new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
       var length= await imageFile.length();
-      var uri = Uri.parse("http://192.168.43.153/sigma/uploadpp.php");
+      var uri = Uri.parse(Constants.updatePPUrl);
 
       var request = new http.MultipartRequest("POST", uri);
 
