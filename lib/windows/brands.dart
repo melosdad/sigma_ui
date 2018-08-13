@@ -57,7 +57,7 @@ class _BrandsState extends State<Brands> {
                       widget.userData
                   )
                       : new Center(
-                    child: new CircularProgressIndicator(),
+                    child: new Text("No Brands"),
                   );
                 })
           ],
