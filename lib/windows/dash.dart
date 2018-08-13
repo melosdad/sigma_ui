@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sigma/windows/chats.dart';
 import 'package:sigma/windows/contacts.dart';
 import 'package:sigma/windows/trends.dart';
+import 'package:sigma/windows/brands.dart';
 
 class Dash extends StatefulWidget {
 final Map userData;
+final isBrand = false;
 
 Dash(this.userData);
 
@@ -16,6 +18,8 @@ Dash(this.userData);
 class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
 
   TabController controller;
+
+
 
   @override
   void initState() {
@@ -29,8 +33,12 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    print(widget.userData['user_type']);
     return Scaffold(
 
       bottomNavigationBar: new Material(
@@ -58,7 +66,7 @@ class _MyHomePageState extends State<Dash> with SingleTickerProviderStateMixin{
           controller: controller,
           children: <Widget>[
             new Chats(widget.userData),
-            new Contacts(widget.userData),
+           new Brands(widget.userData),
             new Trends(widget.userData),
           ]),
 

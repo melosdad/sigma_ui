@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:sigma/windows/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigma/windows/dash.dart';
+import 'package:sigma/windows/chats.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -122,10 +123,19 @@ class _LoginState extends State<Login> {
           savePass(password);
 
           Map userData = json.decode(response.body)['data'];
-          var route = new MaterialPageRoute(
-            builder: (BuildContext context) => new Dash(userData),
-          );
-          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+
+          if(userData['user_type'] == 'customer'){
+            var route = new MaterialPageRoute(
+              builder: (BuildContext context) => new Dash(userData),
+            );
+            Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+          }else{
+            var route = new MaterialPageRoute(
+              builder: (BuildContext context) => new Chats(userData),
+            );
+            Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+          }
+
 
         }
 
@@ -195,7 +205,7 @@ fontSize: 20.0
                         color: Colors.black87
                     )
               ),autofocus: false,
-              keyboardType: TextInputType.text,),
+              keyboardType: TextInputType.emailAddress,),
               new TextFormField(
                 controller: txtPassword,
                 decoration: InputDecoration(

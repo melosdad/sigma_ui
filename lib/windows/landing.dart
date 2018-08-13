@@ -42,7 +42,7 @@ class _LandingState extends State<Landing> {
         child: Column(
           children: <Widget>[
             new SizedBox(height: 20.0,),
-            new Text("Please select the brands you'd like to follower:", textAlign: TextAlign.center, style: TextStyle(
+            new Text("Follow a Brand you like:", textAlign: TextAlign.center, style: TextStyle(
               fontSize: 22.0
             ),
             ),

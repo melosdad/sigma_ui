@@ -42,7 +42,7 @@ class _BrandsState extends State<Brands> {
         child: Column(
           children: <Widget>[
             new SizedBox(height: 20.0,),
-            new Text("Please select the brands you'd like to follower:", textAlign: TextAlign.center, style: TextStyle(
+            new Text("Follow a Brand you like:", textAlign: TextAlign.center, style: TextStyle(
                 fontSize: 22.0
             ),
             ),
@@ -63,21 +63,21 @@ class _BrandsState extends State<Brands> {
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(height: 80.0,child:
-      new Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: MaterialButton(onPressed: (){
-          var route = new MaterialPageRoute(
-            builder: (BuildContext context) => new Dash(widget.userData),
-          );
-          Navigator.of(context).pushAndRemoveUntil(route,(Route<dynamic> route) => false);
-        },
-          //height: 45.0,
-          color: Colors.teal,
-          child: new Text("Continue ", style: TextStyle(
-
-          ),),),
-      ),),
+//      bottomNavigationBar: SizedBox(height: 80.0,child:
+//      new Padding(
+//        padding: const EdgeInsets.all(15.0),
+//        child: MaterialButton(onPressed: (){
+//          var route = new MaterialPageRoute(
+//            builder: (BuildContext context) => new Dash(widget.userData),
+//          );
+//          Navigator.of(context).pushAndRemoveUntil(route,(Route<dynamic> route) => false);
+//        },
+//          //height: 45.0,
+//          color: Colors.teal,
+//          child: new Text("", style: TextStyle(
+//
+//          ),),),
+//      ),),
 
 
     );

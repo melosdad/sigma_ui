@@ -211,6 +211,7 @@ class _RegisterState extends State<Register> {
                 firstName                ,
                 TextFormField(
                   controller: txtLastName,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: "Last Name",
                       labelStyle: TextStyle(color: Colors.black87),
@@ -218,6 +219,7 @@ class _RegisterState extends State<Register> {
                 ),
                 TextFormField(
                   controller: txtEmail,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: "Email Address",
                       labelStyle: TextStyle(color: Colors.black),
@@ -227,6 +229,7 @@ class _RegisterState extends State<Register> {
                 ),
                 TextFormField(
                   controller: txtPassword,
+                  keyboardType: TextInputType.text,
                   obscureText: true,
                   decoration: InputDecoration(
                       labelText: "Password",
@@ -236,6 +239,7 @@ class _RegisterState extends State<Register> {
                 ),
                 TextFormField(
                   controller: txtConfirmPassword,
+                  keyboardType: TextInputType.text,
                   obscureText: true,
                   decoration: InputDecoration(
                       labelText: "Confirm Password",

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:sigma/windows/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:sigma/windows/chats.dart';
 
 final ThemeData iOSTheme = new ThemeData(
   primarySwatch: Colors.red,
@@ -17,14 +18,13 @@ final ThemeData androidTheme = new ThemeData(
   accentColor: Colors.green,
 );
 
- String defaultUserName = "User";
- String otherUser = "Other";
- int counter = 0;
-
-
+String defaultUserName = "User";
+String otherUser = "Other";
+int counter = 0;
 
 class Msg extends StatelessWidget {
   Msg(this.txt, this.animationController, this.logedIn, this.sender);
+
   final String txt;
   final AnimationController animationController;
   final String logedIn;
@@ -32,13 +32,9 @@ class Msg extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-
-    List<Widget> sortMessage(){
-
-      if(logedIn == sender){
-
+    List<Widget> sortMessage() {
+      if (logedIn == sender) {
         return <Widget>[
-
           new Expanded(
             child: new Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -57,8 +53,7 @@ class Msg extends StatelessWidget {
             //alignment: AlignmentDirectional(0.0, 200.0),
           ),
         ];
-      }else{
-
+      } else {
         return <Widget>[
           new Container(
             margin: const EdgeInsets.only(right: 18.0),
@@ -77,10 +72,8 @@ class Msg extends StatelessWidget {
               ],
             ),
           ),
-
         ];
       }
-
     }
 
     return new SizeTransition(
@@ -102,39 +95,36 @@ class Messenger extends StatefulWidget {
   final Map brandData;
   final Map userData;
   final String chatID;
-  Messenger(this.userData,this.brandData, this.chatID);
+
+  Messenger(this.userData, this.brandData, this.chatID);
+
   @override
   _MessengerState createState() => _MessengerState();
 }
 
-class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
-
-
-   List<Msg> _messages = <Msg>[];
+class _MessengerState extends State<Messenger> with TickerProviderStateMixin {
+  List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = new TextEditingController();
 
   getConversations() async {
-   final response = await http.get(Constants.getChatConversationsUrl+"?chat_id="+widget.chatID);
+    final response = await http
+        .get(Constants.getChatConversationsUrl + "?chat_id=" + widget.chatID);
     //final response = await http.get("http://192.168.43.153/sigma/getchatsconversations.php?chat_id=6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b");
 
     List results = json.decode(response.body)['data'];
-    _messages =  <Msg>[];
+    _messages = <Msg>[];
 
-    for(int i = 0; i < results.length; i++){
+    for (int i = 0; i < results.length; i++) {
       Msg msg = new Msg(
-       results[i]['message'],
+          results[i]['message'],
           new AnimationController(
-          vsync: this,
-          duration: new Duration(milliseconds: 800)
-      ),
-        widget.userData['user_id'],
-        results[i]['from_user']
-      );
+              vsync: this, duration: new Duration(milliseconds: 800)),
+          widget.userData['user_id'],
+          results[i]['from_user']);
 
-      _messages.insert(0,msg);
+      _messages.insert(0, msg);
       msg.animationController.forward();
     }
-
   }
 
   Future sendMessage(String message) async {
@@ -148,7 +138,6 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
         "message": message,
       }).then((response) {
         //print(json.decode(response.body));
-
       });
     } catch (e) {
 //      String msg = "Please check your Internet Connection.";
@@ -156,7 +145,6 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
 //      return;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -166,26 +154,26 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
     otherUser = widget.brandData['first_name'];
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-          title: new Text(widget.brandData['first_name'] + " " + widget.brandData['last_name']),
-
-      ),
+        appBar: AppBar(
+          centerTitle: true,
+          title: new Text(widget.brandData['first_name'] +
+              " " +
+              widget.brandData['last_name']),
+        ),
         body: new Column(children: <Widget>[
           new Flexible(
               child: new ListView.builder(
-                itemBuilder: (_, int index) => _messages[index],
-                itemCount: _messages.length,
-                reverse: true,
-                padding: new EdgeInsets.all(6.0),
-              )),
+            itemBuilder: (_, int index) => _messages[index],
+            itemCount: _messages.length,
+            reverse: true,
+            padding: new EdgeInsets.all(6.0),
+          )),
           new Divider(height: 1.0),
           new Container(
             child: _buildComposer(),
             decoration: new BoxDecoration(color: Theme.of(context).cardColor),
           ),
-        ])
-    );
+        ]));
   }
 
   Widget _buildComposer() {
@@ -198,57 +186,43 @@ class _MessengerState extends State<Messenger>  with TickerProviderStateMixin  {
               new Flexible(
                 child: new TextField(
                   controller: _textController,
-autofocus: true,
-//                  onChanged: (String txt) {
-//                    setState(() {
-//                      _isWriting = txt.length > 0;
-//                    });
-//                  },
-                  //onSubmitted: _submitMsg,
-                  decoration:
-                  new InputDecoration.collapsed(hintText: "Enter some text to send a message"),
+                  keyboardType: TextInputType.text,
+                  autofocus: true,
+                  onSubmitted: _submitMsg,
+                  decoration: new InputDecoration.collapsed(
+                      hintText: "Enter some text to send a message"),
                 ),
               ),
               new Container(
                   margin: new EdgeInsets.symmetric(horizontal: 3.0),
                   child: Theme.of(context).platform == TargetPlatform.iOS
                       ? new CupertinoButton(
-                      child: new Text("Submit"),
-                      onPressed:(){
-                        _submitMsg(_textController.text);
-                      }
-                  )
+                          child: new Text("Submit"),
+                          onPressed: () {
+                            _submitMsg(_textController.text);
+                          })
                       : new IconButton(
-                    icon: new Icon(Icons.message),
-                    onPressed: (){
-                      _submitMsg(_textController.text);
-                    }
-                  )
-              ),
+                          icon: new Icon(Icons.message),
+                          onPressed: () {
+                            _submitMsg(_textController.text);
+                          })),
             ],
           ),
           decoration: Theme.of(context).platform == TargetPlatform.iOS
               ? new BoxDecoration(
-              border:
-              new Border(top: new BorderSide(color: Colors.brown))) :
-          null
-      ),
+                  border: new Border(top: new BorderSide(color: Colors.brown)))
+              : null),
     );
   }
 
   void _submitMsg(String txt) {
-
-    if(txt.isNotEmpty){
+    if (txt.isNotEmpty) {
       _textController.clear();
-      setState(() {
-
-      });
+      setState(() {});
       Msg msg = new Msg(
         txt,
         new AnimationController(
-            vsync: this,
-            duration: new Duration(milliseconds: 800)
-        ),
+            vsync: this, duration: new Duration(milliseconds: 800)),
         widget.userData['user_id'],
         widget.userData['user_id'],
       );
@@ -260,7 +234,6 @@ autofocus: true,
       });
       msg.animationController.forward();
     }
-
   }
 
   @override
@@ -270,9 +243,4 @@ autofocus: true,
     }
     super.dispose();
   }
-
 }
-
-
-
-

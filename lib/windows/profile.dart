@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
 import 'package:sigma/windows/login.dart';
+import 'package:sigma/windows/chats.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
@@ -135,10 +136,17 @@ class _ProfileState extends State<Profile> {
                       child: new Text('Ok'),
                       onPressed: () {
                         Map userData = json.decode(response.body)['data'];
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) => new Dash(userData),
-                        );
-                        Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+                        if(userData['user_type'] == 'customer'){
+                          var route = new MaterialPageRoute(
+                            builder: (BuildContext context) => new Dash(userData),
+                          );
+                          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+                        }else{
+                          var route = new MaterialPageRoute(
+                            builder: (BuildContext context) => new Chats(userData),
+                          );
+                          Navigator.of(context).pushAndRemoveUntil(route, (Route<dynamic> route)=> false);
+                        }
                       },
                     ),
                   ],
@@ -251,6 +259,7 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.all(15.0),
             child: new TextFormField(
               controller: txtFirstName,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(labelText: "First Name:"),
             ),
           ),
@@ -258,6 +267,7 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.all(15.0),
             child: new TextFormField(
               controller: txtLastName,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(labelText: "Last Name:"),
             ),
           ),
@@ -265,6 +275,7 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.all(15.0),
             child: new TextField(
               controller: txtCell,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: "Cell Number:"),
             ),
           ),
@@ -272,6 +283,7 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.all(15.0),
             child: new TextField(
               controller: txtEmail,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(labelText: "Email Address:"),
             ),
           ),

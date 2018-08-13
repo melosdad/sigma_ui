@@ -12,7 +12,7 @@ class Constants {
   static final String getfollowingsUrl = base_url+ "getfollowings.php";
   static final String getChatsUrl = base_url+ "getuserchats.php";
   static final String getChatConversationsUrl = base_url+ "getchatsconversations.php";
-  static final String sendMessageUrl = base_url+ "sigma/postchat.php";
+  static final String sendMessageUrl = base_url+ "postchat.php";
   static final String updateProfileUrl = base_url+ "updateprofile.php";
   static final String updatePPUrl = base_url+ "uploadpp.php";
 
